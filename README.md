@@ -1,7 +1,7 @@
 *this project has been created as part of the 42 post-common-core by gdelhota*
 
 # Description:
-The goal of the project is to write a program which, when given a polynomial equation, will write its reduced form, the polarity of the discriminant and the eventual solutions in  {\displaystyle \mathbb {R} }.
+The goal of the project is to write a program which, when given a polynomial equation, will write its reduced form, the polarity of the discriminant and the eventual solutions in $I$. This solver only works for equation up to the 2nd degree.
 The language choice being free, I chose C++ because I want to reuse the implemented solution for GPU 3D rendering later.
 
 # Instructions:
@@ -17,6 +17,8 @@ Discriminant is strictly positive, the two solutions are:
 ```
 
 # Ressources:
+[Markdown math notation](https://www.upyesp.org/posts/makrdown-vscode-math-notation/)
+[Polynomial equations on Wikipedia](https://en.wikipedia.org/wiki/Algebraic_equation)
 
 # AI Usage:
 
