@@ -6,7 +6,7 @@
 /*   By: gdelhota@student.42perpignan.fr            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 17:32:25 by gdelhota          #+#    #+#             */
-/*   Updated: 2026/11/04 21:23:39 by gdelhota         ###   ########.fr       */
+/*   Updated: 2026/11/05 02:32:46 by gdelhota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ int main(int ac, char **av)
 		cout << "Too many arguments (Did you forget quotes?)" << endl;
 		exit(1);
 	}
-	map<int, int> res = parse(av[1]);
-	print(res);
+	map<int, float> res = parse(av[1]);
+	if (res.size() == 0)
+	{
+		cout << "Parsing error" << endl;
+		return 1;
+	}
+	printReduced(res);
+	solve(res);
 }
