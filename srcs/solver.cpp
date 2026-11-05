@@ -6,7 +6,7 @@
 /*   By: gdelhota@student.42perpignan.fr            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 23:14:41 by gdelhota          #+#    #+#             */
-/*   Updated: 2026/11/05 03:27:35 by gdelhota         ###   ########.fr       */
+/*   Updated: 2026/11/05 22:01:19 by gdelhota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,28 @@ void solveSecondDegree(std::map<int, float> equation)
 		  b = equation[1],
 		  c = equation[0];
 	float delta = b * b - 4 * a * c;
-	float res;
+	float res1, res2;
 	if (delta == 0)
 	{
 		std::cout << "Discriminant is zero, the solution is:" << std::endl;
-		res = -b / 2 * a;
-		std::cout << res << std::endl;
+		res1 = -b / 2 * a;
+		std::cout << res1 << std::endl;
 	}
 	else if (delta > 0)
 	{
+		res1 = (-b - std::sqrt(delta)) / (2 * a);
+		res2 = (-b + std::sqrt(delta)) / (2 * a);
 		std::cout << "Discriminant is strictly positive, the two solution are:" << std::endl;
-		res = (-b - std::sqrt(delta)) / (2 * a);
-		std::cout << res << std::endl;
-		res = (-b + std::sqrt(delta)) / (2 * a);
-		std::cout << res << std::endl;
+		std::cout << res1 << std::endl;
+		std::cout << res2 << std::endl;
 	}
 	else
 	{
-		std::cout << "Discriminant is strictly negative, the two complex solution are:" << std::endl;
-		res = -b / (2 * a);
+		res1 = -b / (2 * a);
 		float comp = std::sqrt(-delta) / (2 * a);
-		std::cout << res << " + " << comp << "i" << std::endl;
-		std::cout << res << " - " << comp << "i" << std::endl;
+		std::cout << "Discriminant is strictly negative, the two complex solution are:" << std::endl;
+		std::cout << res1 << " + " << comp << "i" << std::endl;
+		std::cout << res1 << " - " << comp << "i" << std::endl;
 	}
 }
 

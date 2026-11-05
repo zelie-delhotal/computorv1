@@ -6,7 +6,7 @@
 /*   By: gdelhota@student.42perpignan.fr            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 18:39:08 by gdelhota          #+#    #+#             */
-/*   Updated: 2026/11/05 02:32:56 by gdelhota         ###   ########.fr       */
+/*   Updated: 2026/11/05 22:02:51 by gdelhota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
 #include <string>
 #include <map>
 
-void printReduced(std::map<int, float>);
 std::map<int, float> parse(std::string);
+void printReduced(std::map<int, float>);
+int getDegree(std::map<int, float>);
 void solve(std::map<int, float>);
 
 #endif

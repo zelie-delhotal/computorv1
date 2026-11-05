@@ -6,12 +6,11 @@
 /*   By: gdelhota@student.42perpignan.fr            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 18:54:25 by gdelhota          #+#    #+#             */
-/*   Updated: 2026/11/05 21:43:23 by gdelhota         ###   ########.fr       */
+/*   Updated: 2026/11/05 22:26:30 by gdelhota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "computor.hpp"
-#include <iostream>
 
 std::pair<int, float> parseSingle(std::string equation, int *i)
 {
@@ -104,18 +103,26 @@ void printReduced(std::map<int, float> equation)
 {
 	bool first = true;
 	bool isNull = true;
-	float degree = 0;
 	std::cout << "Reduced form: ";
-	for (auto factor : equation)
+	for (std::map<int, float>::iterator factor = equation.end(); factor != equation.begin(); factor--)
 	{
-		if (factor.second != 0)
+		if (factor == equation.end())
+			continue;
+		if (factor->second != 0)
 			isNull = false;
+		else
+		{
+			std::map<int, float>::iterator temp = factor;
+			factor++;
+			equation.erase(temp);
+		}
 	}
 	if (isNull)
 	{
 		std::cout << "0 * X^0 = 0" << std::endl;
 		return;
 	}
+	float degree = 0;
 	for (auto factor : equation)
 	{
 		while (factor.first > degree) {
