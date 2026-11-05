@@ -6,11 +6,12 @@
 /*   By: gdelhota@student.42perpignan.fr            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 23:14:41 by gdelhota          #+#    #+#             */
-/*   Updated: 2026/11/05 02:58:54 by gdelhota         ###   ########.fr       */
+/*   Updated: 2026/11/05 03:27:35 by gdelhota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "computor.hpp"
+#include <cmath>
 
 int getDegree(std::map<int, float> equation)
 {
@@ -51,6 +52,10 @@ void solveSecondDegree(std::map<int, float> equation)
 	else
 	{
 		std::cout << "Discriminant is strictly negative, the two complex solution are:" << std::endl;
+		res = -b / (2 * a);
+		float comp = std::sqrt(-delta) / (2 * a);
+		std::cout << res << " + " << comp << "i" << std::endl;
+		std::cout << res << " - " << comp << "i" << std::endl;
 	}
 }
 
