@@ -6,7 +6,7 @@
 /*   By: gdelhota@student.42perpignan.fr            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 23:14:41 by gdelhota          #+#    #+#             */
-/*   Updated: 2026/11/05 02:50:12 by gdelhota         ###   ########.fr       */
+/*   Updated: 2026/11/05 02:58:54 by gdelhota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void solveSecondDegree(std::map<int, float> equation)
 	else if (delta > 0)
 	{
 		std::cout << "Discriminant is strictly positive, the two solution are:" << std::endl;
-		res = (-b + std::sqrt(delta)) / 2 * a;
+		res = (-b - std::sqrt(delta)) / (2 * a);
 		std::cout << res << std::endl;
-		res = (-b - std::sqrt(delta)) / 2 * a;
+		res = (-b + std::sqrt(delta)) / (2 * a);
 		std::cout << res << std::endl;
 	}
 	else
