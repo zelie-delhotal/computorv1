@@ -6,7 +6,7 @@
 /*   By: gdelhota@student.42perpignan.fr            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 18:54:25 by gdelhota          #+#    #+#             */
-/*   Updated: 2026/11/05 20:08:29 by gdelhota         ###   ########.fr       */
+/*   Updated: 2026/11/05 21:43:23 by gdelhota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,15 @@ void printReduced(std::map<int, float> equation)
 			degree++;
 		}
 		if (!first)
-			std::cout << " + ";
-		first = false;
-		std::cout << factor.second << " * X^" << factor.first;
+		{
+			std::cout << (factor.second>=0?" + ":" - ");
+			std::cout << (factor.second<0?-factor.second:factor.second) << " * X^" << factor.first;
+		}
+		else 
+		{
+			first = false;
+			std::cout << factor.second << " * X^" << factor.first;
+		}
 		degree++;
 	}
 	std::cout << " = 0" << std::endl;
