@@ -6,7 +6,7 @@
 /*   By: gdelhota@student.42perpignan.fr            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 18:39:08 by gdelhota          #+#    #+#             */
-/*   Updated: 2026/11/05 22:02:51 by gdelhota         ###   ########.fr       */
+/*   Updated: 2026/11/06 01:37:35 by gdelhota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 
 std::map<int, float> parse(std::string);
 void printReduced(std::map<int, float>);
+void prettyPrint(std::map<int, float>);
+std::string prettyFraction(float, float, float);
+void prettyResolution(float, float, float);
 int getDegree(std::map<int, float>);
 void solve(std::map<int, float>);
 

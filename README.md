@@ -6,7 +6,7 @@ The language choice being free, I chose C++ because I want to reuse the implemen
 
 # Instructions:
 Run `make` at the root of the project to compile it. Then run it with `./computor <your equation>`
-Example:
+Example (given in the subject):
 ```
 $>./computor "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
 Reduced form: 4 * X^0 + 4 * X^1 - 9.3 * X^2 = 0
@@ -16,9 +16,28 @@ Discriminant is strictly positive, the two solutions are:
 -0.475131
 ```
 
+# Bonuses:
+
+## Complete parsing
+Parsing detects errors and signals them
+
+## Free form entry
+Multiply signs and spaces can be ommited and $X^1$ can be written as `X`
+
+## Intermediate calculation steps
+Each calculation is detailed step by step in stdout
+
+## Pretty Format
+The reduced form is rewritten in an easily readable human format, ignoring null values, multiplications by 1 and powers of 1 or 0.
+
+## Square Root simplification
+Square roots will be simplified whenever possible in the calculation steps. For example $sqrt(8)$ becomes $2sqrt(2)$
+
 # Ressources:
 [Markdown math notation](https://www.upyesp.org/posts/makrdown-vscode-math-notation/)
 [Polynomial equations on Wikipedia](https://en.wikipedia.org/wiki/Algebraic_equation)
+[Quadratic equations on Wikipedia](https://en.wikipedia.org/wiki/Quadratic_equation)
+[C++ Documentation](https://en.cppreference.com/)
 
 # AI Usage:
 

@@ -6,11 +6,15 @@
 /*   By: gdelhota@student.42perpignan.fr            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 18:54:25 by gdelhota          #+#    #+#             */
-/*   Updated: 2026/11/05 22:26:30 by gdelhota         ###   ########.fr       */
+/*   Updated: 2026/11/06 05:33:36 by gdelhota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "computor.hpp"
+#include <cmath>
+#include <cstddef>
+#include <cstdio>
+#include <iostream>
 
 std::pair<int, float> parseSingle(std::string equation, int *i)
 {
@@ -104,10 +108,9 @@ void printReduced(std::map<int, float> equation)
 	bool first = true;
 	bool isNull = true;
 	std::cout << "Reduced form: ";
-	for (std::map<int, float>::iterator factor = equation.end(); factor != equation.begin(); factor--)
+	for (std::map<int, float>::iterator factor = equation.end(); factor != equation.begin();)
 	{
-		if (factor == equation.end())
-			continue;
+		factor--;
 		if (factor->second != 0)
 			isNull = false;
 		else
@@ -145,4 +148,130 @@ void printReduced(std::map<int, float> equation)
 		degree++;
 	}
 	std::cout << " = 0" << std::endl;
+}
+
+void prettyPrint(std::map<int, float> e)
+{
+	bool first = true;
+	for (auto factor = e.end(); factor != e.begin();)
+	{
+		factor--;
+		if (factor->second == 0)
+			continue;
+		if (!first)
+		{
+			std::cout << (factor->second>=0?" + ":" - ");
+			if (factor->first == 0 || (factor->second != 1 && factor->second != -1))
+				std::cout << (factor->second<0?-factor->second:factor->second);
+			if (factor->first == 1)
+				std::cout << "X";
+			else if (factor->first > 1)
+				std::cout<< "X^" << factor->first;
+		}
+		else 
+		{
+			first = false;
+			if (factor->first == 0 || (factor->second != 1 && factor->second != -1))
+				std::cout << factor->second;
+			if (factor->first == 1)
+				std::cout << "X";
+			else if (factor->first > 1)
+				std::cout << "X^" << factor->first;
+		}
+	}
+	std::cout << " = 0" << std::endl;
+}
+
+void prettyFractions(float a, float b, float delta)
+{
+	bool isComplex = false;
+
+	if (delta < 0)
+	{
+		isComplex = true;
+		delta = -delta;
+	}
+	if (!isComplex)
+	{
+		std::cout << "r1 = (" << -b  << " - sqrt(" << delta << ")) / (2 * " << a << ")" << std::endl;
+		std::cout << "r2 = (" << -b  << " + sqrt(" << delta << ")) / (2 * " << a << ")" << std::endl;
+	}
+	else
+	{
+		std::cout << "r1 = " << -b  << " / (2 * " << a
+			<< ") - i(sqrt(" << delta << ") / (2 * " << a << "))" << std::endl;
+		std::cout << "r2 = " << -b  << " / (2 * " << a
+			<< ") + i(sqrt(" << delta << ")) / (2 * " << a << "))" << std::endl;
+	}
+
+	// if Delta is an integer, we can try to reduce the root
+	// and print pretty fractions
+	float perfectRoot = 0;
+	float trash;
+	int dCast = (int) delta;
+	if (std::modf(delta, &trash) == 0)
+	{
+		for (int i = 1; i*i<=delta; i++)
+		{
+			if (dCast % (i*i) == 0)
+				perfectRoot = i;
+		}
+	}
+
+	if (perfectRoot > 1)
+	{
+		delta /= (perfectRoot * perfectRoot);
+		if (!isComplex)
+		{
+			std::cout << "r1 = (" << -b  << " - ";
+			if (perfectRoot >= 1)
+				std::cout << perfectRoot;
+			if (delta > 1)
+				std::cout << "sqrt(" << delta << ")";
+			std::cout << " / (2 * " << a << ")" << std::endl;
+			std::cout << "r2 = (" << -b  << " + ";
+			if (perfectRoot >= 1)
+				std::cout << perfectRoot;
+			if (delta > 1)
+				std::cout << "sqrt(" << delta << ")";
+			std::cout << " / (2 * " << a << ")" << std::endl;
+		}
+		else
+		{
+			std::cout << "r1 = " << -b  << " / (2 * " << a << ") - ";
+			if (perfectRoot >= 1)
+				std::cout << perfectRoot;
+			if (delta > 1)
+				std::cout << "sqrt(" << delta << ")";
+			std::cout << "i";
+			std::cout << " / (2 * " << a << ")" << std::endl;
+			std::cout << "r2 = " << -b  << " / (2 * " << a << ") + ";
+			if (perfectRoot >= 1)
+				std::cout << perfectRoot;
+			if (delta > 1)
+				std::cout << "sqrt(" << delta << ")";
+			std::cout << "i";
+			std::cout << " / (2 * " << a << "))" << std::endl;
+		}
+	}
+}
+
+void prettyResolution(float a, float b, float delta)
+{
+	(void) a;
+	(void) b;
+	std::cout << "Discriminant is strictly " << (delta>0?"positive":"negative") 
+		<< ", the two " << (delta<0?"complex ":"") << "solutions are:" << std::endl;
+	if (delta > 0)
+	{
+		std::cout << "r1 = (-b - sqrt(D)) / 2a" << std::endl;
+		std::cout << "r2 = (-b + sqrt(D)) / 2a" << std::endl;
+	}
+	else
+	{
+		std::cout << "r1 = -(b / 2a) - i(sqrt(-D) / 2a)" << std::endl;
+		std::cout << "r2 = -(b / 2a) + i(sqrt(-D) / 2a)" << std::endl;
+	}
+	std::cout << std::endl;
+	prettyFractions(a, b, delta);
 }

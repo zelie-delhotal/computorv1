@@ -6,12 +6,13 @@
 /*   By: gdelhota@student.42perpignan.fr            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 23:14:41 by gdelhota          #+#    #+#             */
-/*   Updated: 2026/11/05 22:01:19 by gdelhota         ###   ########.fr       */
+/*   Updated: 2026/11/06 01:37:54 by gdelhota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "computor.hpp"
-#include <cmath>
+#include <functional>
+#include <iostream>
 
 int getDegree(std::map<int, float> equation)
 {
@@ -23,7 +24,13 @@ int getDegree(std::map<int, float> equation)
 
 void solveFirstDegree(std::map<int, float> equation)
 {
-	float res = - equation[0] / equation[1];
+	float a = equation[1],
+		  b = equation[0];
+	float res = -b / a;
+	std::cout << std::endl;
+	std::cout << a << "X = " << -b << std::endl;
+	std::cout << "X = " << -b << "/" << a << std::endl;
+	std::cout << std::endl;
 	std::cout << "The solution is:" << std::endl;
 	std::cout << res << std::endl;
 }
@@ -35,25 +42,39 @@ void solveSecondDegree(std::map<int, float> equation)
 		  c = equation[0];
 	float delta = b * b - 4 * a * c;
 	float res1, res2;
+	std::cout << std::endl;
+	std::cout << "D = b^2 - 4ac" << std::endl;
+	std::cout << "D = " << b << "^2 - 4 * " << a << " * " << c << std::endl;
+	std::cout << "D = " << delta << std::endl;
+	std::cout << std::endl;
 	if (delta == 0)
 	{
-		std::cout << "Discriminant is zero, the solution is:" << std::endl;
+		//mathematical nonsense to prevent -0 from showing up
+		if (b == 0)
+			b = -b;
 		res1 = -b / 2 * a;
-		std::cout << res1 << std::endl;
+		std::cout << "Discriminant is zero, the solution is:" << std::endl;
+		std::cout << "r = -b / 2a" << std::endl;
+		std::cout << "r = " << -b << " / (2 * " << a << ")" << std::endl;
+		std::cout << "r = " << res1 << std::endl;
 	}
 	else if (delta > 0)
 	{
+		if (b == 0)
+			b = -b;
 		res1 = (-b - std::sqrt(delta)) / (2 * a);
 		res2 = (-b + std::sqrt(delta)) / (2 * a);
-		std::cout << "Discriminant is strictly positive, the two solution are:" << std::endl;
+		prettyResolution(a, b, delta);
 		std::cout << res1 << std::endl;
 		std::cout << res2 << std::endl;
 	}
 	else
 	{
+		if (b == 0)
+			b = -b;
 		res1 = -b / (2 * a);
 		float comp = std::sqrt(-delta) / (2 * a);
-		std::cout << "Discriminant is strictly negative, the two complex solution are:" << std::endl;
+		prettyResolution(a, b, delta);
 		std::cout << res1 << " + " << comp << "i" << std::endl;
 		std::cout << res1 << " - " << comp << "i" << std::endl;
 	}
@@ -78,6 +99,8 @@ void solve(std::map<int, float> equation)
 		std::cout << "The polynomial degree is strictly greater than 2, I can't solve." << std::endl;
 		return;
 	}
+	std::cout << "Resolution steps:" << std::endl;
+	prettyPrint(equation);
 	if (degree == 1)
 		solveFirstDegree(equation);
 	else
